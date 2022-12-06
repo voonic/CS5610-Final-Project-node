@@ -1,3 +1,5 @@
+import AccountType from "./AccountType";
+
 /**
  * A model representation of a single user in our application.
  * 
@@ -28,6 +30,7 @@ export default interface User {
   biography: string;
   dateOfBirth: Date;
   joined: Date;
+  accountType: AccountType;
   followersCount: Number,
   followingCount: Number,
 }

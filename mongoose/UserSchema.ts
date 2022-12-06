@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import AccountType from "../models/AccountType";
 import User from "../models/User";
 
 /**
@@ -14,6 +15,7 @@ const UserSchema = new mongoose.Schema<User>({
   biography: String,
   dateOfBirth: Date,
   joined: { type: Date, default: Date.now },
+  accountType: { type: String, default: AccountType.Normal, enum: AccountType },
   followersCount: { type: Number, default: 0 },
   followingCount: { type: Number, default: 0 },
 }, { collection: 'users' });
