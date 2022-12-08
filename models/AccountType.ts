@@ -8,4 +8,5 @@ enum AccountType {
     Critic = 'CRITIC',
     Normal = 'NORMAL',
 };
+
 export default AccountType;
