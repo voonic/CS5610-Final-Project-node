@@ -22,8 +22,7 @@ import AccountType from "./AccountType";
 export default interface User {
   username: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   profilePhoto: string;
   headerImage: string;
