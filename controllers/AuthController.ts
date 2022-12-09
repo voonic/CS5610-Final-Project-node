@@ -49,7 +49,7 @@ export default class AuthController implements AuthControllerI {
     newUser.password = hash;
     newUser.profilePhoto = "nasa.png";
     const existingUser = await AuthController.userDao
-      .findUserByUsername(req.body.email);
+      .findUserByEmail(req.body.email);
     if (existingUser) {
       res.sendStatus(403);
       return;
@@ -75,7 +75,7 @@ export default class AuthController implements AuthControllerI {
     const email = user.email;
     const password = user.password;
     const existingUser = await AuthController.userDao
-      .findUserByUsername(email);
+      .findUserByEmail(email);
 
     if (!existingUser) {
       res.sendStatus(403);
