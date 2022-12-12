@@ -11,9 +11,9 @@ import User from "./User";
  **/
 export default interface UserReview {
     reviewedBy : User,
-    movieId: number,
+    movieId: Number,
     reviewTime : Date,
-    reviewTitle : string,
-    reviewDetail :string,
-    reviewRating : number
+    reviewTitle : String,
+    reviewDetail :String,
+    reviewRating : Number
 }

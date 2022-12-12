@@ -7,7 +7,7 @@ const UserReviewSchema = new mongoose.Schema<UserReview>({
     reviewRating : Number,
     reviewTitle :String,
     movieId : Number,
-    reviewedBy :{type : mongoose.Schema.Types.ObjectId, ref : "UserModel",required :true},
+    reviewedBy :{type : mongoose.Schema.Types.ObjectId, ref : "UserModel", required :true},
 },{collection : 'userReviews'});
 
 export default UserReviewSchema;
