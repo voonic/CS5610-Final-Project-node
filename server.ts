@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { connect } from 'mongoose';
+import AuthController from './controllers/AuthController';
 
 const cors = require('cors');
 const session = require("express-session");
@@ -32,8 +33,18 @@ const options = {
   family: 4
 }
 
+
+connect('mongodb+srv://webdevfinal:web12345@cluster0.mbnud63.mongodb.net/?retryWrites=true&w=majority', options, (err) => {
+  if (err) {
+    return console.error(err);
+  }
+  return console.log("MongoDB connection successful");
+});
+
 app.get('/', (req: Request, res: Response) =>
   res.send('Welcome to Web Dev Final Project!!!!'));
+
+AuthController.getInstance(app);
 
 /*
 * Start a server listening at port 4000 locally

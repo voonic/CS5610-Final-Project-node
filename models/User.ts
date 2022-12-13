@@ -27,7 +27,7 @@ export default interface User {
   profilePhoto: string;
   headerImage: string;
   biography: string;
-  dateOfBirth: Date;
+  dob: Date;
   joined: Date;
   accountType: AccountType;
   followersCount: Number,

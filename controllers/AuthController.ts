@@ -29,7 +29,7 @@ export default class AuthController implements AuthControllerI {
       AuthController.authController = new AuthController();
       app.post("/auth/signin", AuthController.authController.signin);
       app.post("/auth/signup", AuthController.authController.signup);
-      app.post("/auth/profile", AuthController.authController.profile);
+      app.get("/auth/profile", AuthController.authController.profile);
       app.post("/auth/signout", AuthController.authController.signout);
     }
     return AuthController.authController;
@@ -49,7 +49,7 @@ export default class AuthController implements AuthControllerI {
     newUser.password = hash;
     newUser.profilePhoto = "nasa.png";
     const existingUser = await AuthController.userDao
-      .findUserByUsername(req.body.username);
+      .findUserByEmail(req.body.email);
     if (existingUser) {
       res.sendStatus(403);
       return;
@@ -72,10 +72,10 @@ export default class AuthController implements AuthControllerI {
    */
   signin = async (req: Request, res: Response) => {
     const user = req.body;
-    const username = user.username;
+    const email = user.email;
     const password = user.password;
     const existingUser = await AuthController.userDao
-      .findUserByUsername(username);
+      .findUserByEmail(email);
 
     if (!existingUser) {
       res.sendStatus(403);
