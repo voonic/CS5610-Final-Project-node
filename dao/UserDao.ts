@@ -9,11 +9,11 @@ import UserDaoI from "../interfaces/UserDaoI";
 export default class UserDao implements UserDaoI {
 
   /**
-   * Finds the user based on the username
-   * @param username The user id of the user
+   * Finds the user based on the email.
+   * @param email The user id of the user
    */
-  async findUserByUsername(username: string): Promise<any> {
-    return await UserModel.findOne({ username: username });
+  async findUserByEmail(email: string): Promise<any> {
+    return await UserModel.findOne({ email: email });
   }
 
   /**
@@ -52,12 +52,12 @@ export default class UserDao implements UserDaoI {
   }
 
   /**
-   * Deletes an existing user in the database based on the username.
+   * Deletes an existing user in the database based on the email.
    * @param username The username for of the user being deleted.
    * @returns The JSON object with delete count.
    */
-  async deleteUserByUsername(username: string): Promise<any> {
-    return await UserModel.deleteMany({ username: username });
+  async deleteUserByEmail(email: string): Promise<any> {
+    return await UserModel.deleteMany({ email: email });
   }
 
   /**

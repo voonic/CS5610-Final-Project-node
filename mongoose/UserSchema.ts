@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema<User>({
   profilePhoto: String,
   headerImage: String,
   biography: String,
-  dateOfBirth: Date,
+  dob: Date,
   joined: { type: Date, default: Date.now },
   accountType: { type: String, default: AccountType.Normal, enum: AccountType },
   followersCount: { type: Number, default: 0 },

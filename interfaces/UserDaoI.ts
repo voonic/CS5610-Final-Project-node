@@ -7,10 +7,10 @@ import User from "../models/User";
 export default interface UserDaoI {
   findAllUsers(): Promise<User[]>;
   findUserById(uid: string): Promise<User>;
-  findUserByUsername(username: string): Promise<User>;
+  findUserByEmail(email: string): Promise<User>;
   createUser(user: User): Promise<User>;
   updateUser(uid: string, user: User): Promise<any>;
   deleteUser(uid: string): Promise<any>;
-  deleteUserByUsername(username: string): Promise<any>;
+  deleteUserByEmail(email: string): Promise<any>;
 }
 
