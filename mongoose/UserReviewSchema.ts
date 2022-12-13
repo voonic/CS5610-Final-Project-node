@@ -3,7 +3,7 @@ import UserReview from "../models/UserReview";
 
 const UserReviewSchema = new mongoose.Schema<UserReview>({
     reviewDetail : String,
-    reviewTime : Date,
+    reviewTime : {type : Date, default : Date.now},
     reviewRating : Number,
     reviewTitle :String,
     movieId : Number,

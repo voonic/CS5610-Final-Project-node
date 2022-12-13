@@ -3,7 +3,7 @@ import UserReview from "../models/UserReview";
 import UserReviewModel from "../mongoose/UserReviewModel";
 
 export default class UserReviewDao implements UserReviewDaoI{
-  findReviewByMovieID = async (mId: String) : Promise<UserReview[]> => {
+  findReviewByMovieId = async (mId: String) : Promise<UserReview[]> => {
       const res = await UserReviewModel.find({movieId : mId});
       return res;
     
