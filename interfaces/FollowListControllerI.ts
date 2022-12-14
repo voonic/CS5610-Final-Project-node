@@ -1,14 +1,15 @@
 import User from "../models/User";
+import {Request, Response} from "express";
 
 /**
  * An interface that provides common operations that can be performed on the FollowList collection.
  */
 export default interface FollowListControllerI{
 
-    findAllFollowers() : Promise<User[]>;
-    findAllFollowing() : Promise<User[]>;
-    findFollowerByUserId(uId : string) : Promise<User>;
-    findFollowingByUserId(uId : string) : Promise<User>;
-    addFollowing(uId : string) : Promise<any>;
-    deleteFollowing(uId : string) : Promise<any>;
+    findAllFollowers(req: Request, res: Response): void;
+    findAllFollowing(req: Request, res: Response): void;
+    findFollowerByUserId(req: Request, res: Response): void;
+    findFollowingByUserId(req: Request, res: Response): void;
+    addFollowing(req: Request, res: Response): void;
+    deleteFollowing(req: Request, res: Response): void;
 }
