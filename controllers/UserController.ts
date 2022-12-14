@@ -45,18 +45,32 @@ export default class UserController implements UserControllerI {
     }
 
     createUser = async (req: Request, res: Response) => {
+        const user = req.body;
+        const result = await UserController.userDao.createUser(user);
+        res.json(result);
     }
 
     deleteUser = async (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const result = await UserController.userDao.deleteUser(uid);
+        res.json(result);
     }
 
     deleteUserByEmail = async (req: Request, res: Response) => {
+        const email = req.params.email;
+        const result = await UserController.userDao.deleteUser(email);
+        res.json(result);
     }
 
     findAllUsers = async (req: Request, res: Response) => {
+        const result = await UserController.userDao.findAllUsers();
+        res.json(result);
     }
 
     findUserByEmail = async (req: Request, res: Response) => {
+        const email = req.params.email;
+        const result = await UserController.userDao.findUserById(email);
+        res.json(result);
     }
 
 
