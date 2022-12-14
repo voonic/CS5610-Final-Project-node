@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { connect } from 'mongoose';
 import AuthController from './controllers/AuthController';
 import UserReviewController from './controllers/UserReviewController';
+import UserController from "./controllers/UserController";
 
 const cors = require('cors');
 const session = require("express-session");
@@ -47,6 +48,7 @@ app.get('/', (req: Request, res: Response) =>
 
 AuthController.getInstance(app);
 UserReviewController.getInstance(app);
+UserController.getInstance(app);
 
 /*
 * Start a server listening at port 4000 locally
