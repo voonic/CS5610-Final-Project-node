@@ -1,13 +1,15 @@
 import User from "./User";
-import FollowType from "./FollowType";
 
 /**
  * A model representation of each user in FollowList.
+ * following:
  *
- * @property {FollowType} followType The follow type(following/follower) of the user.
- * @property {User} user The user object in the follow list.
+ * @property {User} following Current user following other user.
+ * @property {User} follower Other user following current user.
+ * @property {Date} addedOn date of adding the user in either of the list.
  */
 export default interface FollowList {
-    followType: FollowType;
-    user : User;
+    follower: User,
+    following : User,
+    addedOn: Date,
 };
