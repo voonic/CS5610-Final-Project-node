@@ -1,12 +1,13 @@
 import { Express, Request, Response } from "express";
 
 import UserReviewDao from "../dao/UserReviewDao";
+import UserReviewControllerI from "../interfaces/UserReviewControllerI";
 
 /**
  * UserReviewController to handle the movie reviews, which includes adding new reviews,
  * editing existing ones and deleting reviews.
  */
-export default class UserReviewController {
+export default class UserReviewController implements UserReviewControllerI{
 
   private static userReviewDao: UserReviewDao = new UserReviewDao();
   private static userReviewController : UserReviewController | null = null;
