@@ -5,6 +5,7 @@ import User from "../models/User";
  * can be done on the users collection.
  */
 export default interface UserDaoI {
+
   findAllUsers(): Promise<User[]>;
   findUserById(uid: string): Promise<User>;
   findUserByEmail(email: string): Promise<User>;

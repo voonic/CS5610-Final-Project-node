@@ -4,8 +4,7 @@ import UserControllerI from "../interfaces/UserControllerI";
 
 
 /**
- * Authentication controller that registers the user
- * auth relate APIs to performs sign up and sign in.
+ * User controller that handles operations on the user related to adding ,updating user.
  */
 export default class UserController implements UserControllerI {
     private static userDao: UserDao = new UserDao();
@@ -26,23 +25,91 @@ export default class UserController implements UserControllerI {
     public static getInstance = (app: Express): UserController => {
         if (UserController.userController === null) {
             UserController.userController = new UserController();
-            app.get("/user/:uid", UserController.userController.findUserById);
-            app.put("/user/:uid",  UserController.userController.updateUser);
+            app.get("/user/find/:uid", UserController.userController.findUserById);
+            app.get("/user/find/email", UserController.userController.findUserByEmail);
+            app.put("/user/update/:uid",  UserController.userController.updateUser);
+            app.post("/user/create", UserController.userController.createUser);
+            app.get("/user/find/all", UserController.userController.findAllUsers);
+            app.delete("/user/delete/:uid", UserController.userController.deleteUser);
+            app.delete("/user/delete/:email", UserController.userController.deleteUserByEmail);
         }
         return UserController.userController;
     }
 
+    /**
+     * Responsible for finding a user using their id.
+     * @param req  request containing the userId to find the user.
+     * @param res response that is to be sent to the user.
+     */
     findUserById = async (req: Request, res: Response) => {
         const uId = req.params.uid;
         const result = await UserController.userDao.findUserById(uId);
         res.json(result);
     }
 
+    /**
+     * Responsible for updating an existing user using their id.
+     * @param req  request containing the userId to find the user.
+     * @param res response that is to be sent to the user after updating the user.
+     */
     updateUser = async (req: Request, res: Response) => {
         const uid = req.params.uid;
         const user = req.body;
         const result = await UserController.userDao.updateUser(uid, user);
-        console.log('trying to update the user dob');
+        res.json(result);
+    }
+
+    /**
+     * Responsible for creating a user in the database.
+     * @param req  request containing the user details in the body.
+     * @param res response that is to be sent as a new user.
+     */
+    createUser = async (req: Request, res: Response) => {
+        const user = req.body;
+        const result = await UserController.userDao.createUser(user);
+        res.json(result);
+    }
+
+    /**
+     * Responsible for deleting an existing user using their id.
+     * @param req  request containing the userId to find the user.
+     * @param res response that is to be sent to the user post deletion.
+     */
+    deleteUser = async (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const result = await UserController.userDao.deleteUser(uid);
+        res.json(result);
+    }
+
+    /**
+     * Responsible for deleting a user using their email.
+     * @param req  request containing the user email to find the user.
+     * @param res response that is to be sent to the user post deletion.
+     */
+    deleteUserByEmail = async (req: Request, res: Response) => {
+        const email = req.params.email;
+        const result = await UserController.userDao.deleteUser(email);
+        res.json(result);
+    }
+
+    /**
+     * Responsible for finding all users in the database.
+     * @param req  request.
+     * @param res response that is to be sent to the user.
+     */
+    findAllUsers = async (req: Request, res: Response) => {
+        const result = await UserController.userDao.findAllUsers();
+        res.json(result);
+    }
+
+    /**
+     * Responsible for finding a user using their email.
+     * @param req  request containing the user email to find the user.
+     * @param res response that is to be sent to the user.
+     */
+    findUserByEmail = async (req: Request, res: Response) => {
+        const email = req.params.email;
+        const result = await UserController.userDao.findUserById(email);
         res.json(result);
     }
 
