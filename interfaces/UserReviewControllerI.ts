@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 export default interface UserReviewControllerI{
   findReviewByUserId(req :Request, res :Response) : void;
   findReviewByMovieId (req :Request, res :Response) :void;
+  findReviewByMovieIdAndType (req :Request, res :Response) :void;
   createReview(req :Request, res :Response) :void;
   deleteReviewById(req :Request, res :Response): void;
   updateReviewById(req : Request, res :Response): void;

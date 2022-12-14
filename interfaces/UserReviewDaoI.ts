@@ -1,3 +1,4 @@
+import ReviewType from "../models/ReviewType";
 import UserReview from "../models/UserReview";
 
 /**
@@ -6,8 +7,10 @@ import UserReview from "../models/UserReview";
 export default interface UserReviewDaoI{
 
   findReviewByMovieId(mId :string) : Promise<UserReview[]>;
+  findReviewByMoviewIdAndType(mId:string,type : ReviewType): Promise<UserReview[]>;
   findReviewByUserId(uId : string) : Promise<UserReview[]>;
   createReview(newReview : UserReview) : Promise<any>;
   deleteReviewById(rId : string) : Promise<any>;
   updateReviewById(rId : string, newReview : UserReview) : Promise<any>;
+
 }

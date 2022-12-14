@@ -2,6 +2,7 @@ import { Express, Request, Response } from "express";
 
 import UserReviewDao from "../dao/UserReviewDao";
 import UserReviewControllerI from "../interfaces/UserReviewControllerI";
+import ReviewType from "../models/ReviewType";
 
 /**
  * UserReviewController to handle the movie reviews, which includes adding new reviews,
@@ -29,6 +30,7 @@ export default class UserReviewController implements UserReviewControllerI{
       UserReviewController.userReviewController = new UserReviewController();
       app.post("/movie/reviews", UserReviewController.userReviewController.createReview);
       app.get("/movie/reviews/:mId", UserReviewController.userReviewController.findReviewByMovieId);
+      app.get("/movie/reviews/:mId/:reviewType", UserReviewController.userReviewController.findReviewByMovieIdAndType);
       app.get("/user/reviews/:uId", UserReviewController.userReviewController.findReviewByUserId);
       app.put("/movie/reviews/:rId", UserReviewController.userReviewController.updateReviewById);
       app.delete("/movie/reviews/:rId", UserReviewController.userReviewController.deleteReviewById);
@@ -58,7 +60,17 @@ export default class UserReviewController implements UserReviewControllerI{
     res.json(result);
   };
 
-
+  /**
+   * Responsibel for finding all the reviews of a sepcific movie and specifc type.
+   * @param req request containinig particular movie's id and type.
+   * @param res  responde to the user.
+   */
+findReviewByMovieIdAndType =async (req:Request, res : Response) => {
+  const mId = req.params.mId;
+  const type = req.params.reviewType as ReviewType;
+  const result = await UserReviewController.userReviewDao.findReviewByMoviewIdAndType(mId,type);
+  res.json(result);
+}
 
   /**
    * Responsible for adding new reviews into the database.
@@ -97,6 +109,9 @@ export default class UserReviewController implements UserReviewControllerI{
     const status = await UserReviewController.userReviewDao.updateReviewById(rId, review);
     res.json(status);
   };
+
+
+  
   
 }
 
