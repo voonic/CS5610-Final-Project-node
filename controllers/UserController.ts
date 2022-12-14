@@ -4,8 +4,7 @@ import UserControllerI from "../interfaces/UserControllerI";
 
 
 /**
- * Authentication controller that registers the user
- * auth relate APIs to performs sign up and sign in.
+ * User controller that handles operations on the user related to adding ,updating user.
  */
 export default class UserController implements UserControllerI {
     private static userDao: UserDao = new UserDao();
@@ -42,8 +41,22 @@ export default class UserController implements UserControllerI {
         const uid = req.params.uid;
         const user = req.body;
         const result = await UserController.userDao.updateUser(uid, user);
-        console.log('trying to update the user dob');
         res.json(result);
+    }
+
+    createUser = async (req: Request, res: Response) => {
+    }
+
+    deleteUser = async (req: Request, res: Response) => {
+    }
+
+    deleteUserByEmail = async (req: Request, res: Response) => {
+    }
+
+    findAllUsers = async (req: Request, res: Response) => {
+    }
+
+    findUserByEmail = async (req: Request, res: Response) => {
     }
 
 
