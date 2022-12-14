@@ -8,12 +8,12 @@ export default interface FollowListDaoI{
     /**
      * Method to find all the followers the current user have.
      */
-    findAllFollowers() : Promise<User[]>;
+    findAllFollowers(uId: string) : Promise<User[]>;
 
     /**
      * Method to find all the users who are following the current user.
      */
-    findAllFollowing() : Promise<User[]>;
+    findAllFollowing(uId: string) : Promise<User[]>;
 
     /**
      * Find all the followers another user have.

@@ -1,10 +1,10 @@
 import FollowListControllerI from "../interfaces/FollowListControllerI";
 import {Express, Request, Response} from "express";
-import UserDao from "../dao/UserDao";
+import FollowListDao from "../dao/FollowListDao";
 
 export default class FollowListController implements FollowListControllerI{
 
-    private static userDao: UserDao = new UserDao();
+    private static followListDao: FollowListDao = new FollowListDao();
     private static followListController: FollowListController | null = null;
 
     /**
@@ -22,8 +22,8 @@ export default class FollowListController implements FollowListControllerI{
     public static getInstance = (app: Express): FollowListController => {
         if (FollowListController.followListController === null) {
             FollowListController.followListController = new FollowListController();
-            app.get("/follow/find/followers", FollowListController.followListController.findAllFollowers);
-            app.get("/follow/find/following", FollowListController.followListController.findAllFollowing);
+            app.get("/user/:uid/followers/", FollowListController.followListController.findAllFollowers);
+            app.get("/user/:uid/following/", FollowListController.followListController.findAllFollowing);
             app.post("/follow/add/:uid",  FollowListController.followListController.addFollowing);
             app.get("/user/find/following/:uid", FollowListController.followListController.findFollowingByUserId)
             app.get("/user/find/follower/:uid", FollowListController.followListController.findFollowersByUserId);
@@ -41,9 +41,15 @@ export default class FollowListController implements FollowListControllerI{
     }
 
     findAllFollowers = async (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const result = await FollowListController.followListDao.findAllFollowers(uid);
+        res.json(result);
     }
 
     findAllFollowing = async (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const result = await FollowListController.followListDao.findAllFollowing(uid);
+        res.json(result);
     }
 
     findFollowersByUserId = async (req: Request, res: Response) => {
