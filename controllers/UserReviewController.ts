@@ -26,11 +26,11 @@ export default class UserReviewController {
   public static getInstance = (app: Express): UserReviewController => {
     if (UserReviewController.userReviewController === null) {
       UserReviewController.userReviewController = new UserReviewController();
-      app.post("/movie/reviews/newreview", UserReviewController.userReviewController.createReview);
+      app.post("/movie/reviews", UserReviewController.userReviewController.createReview);
       app.get("/movie/reviews/:mId", UserReviewController.userReviewController.findReviewByMovieId);
       app.get("/user/reviews/:uId", UserReviewController.userReviewController.findReviewByUserId);
-      app.put("/movie/reviews/update/:rId", UserReviewController.userReviewController.updateReviewById);
-      app.delete("/movie/reviews/delete/:rId", UserReviewController.userReviewController.deleteReviewById);
+      app.put("/movie/reviews/:rId", UserReviewController.userReviewController.updateReviewById);
+      app.delete("/movie/reviews/:rId", UserReviewController.userReviewController.deleteReviewById);
     }
     return UserReviewController.userReviewController;
   }

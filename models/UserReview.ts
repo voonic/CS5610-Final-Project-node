@@ -1,3 +1,4 @@
+import ReviewType from "./ReviewType";
 import User from "./User";
 
 
@@ -15,5 +16,10 @@ export default interface UserReview {
     reviewTime : Date,
     reviewTitle : String,
     reviewDetail :String,
-    reviewRating : Number
+    reviewRating : Number,
+    reviewType : ReviewType,
+    actingRating : Number,
+    directionRating : Number,
+    cinematographyRating : Number,
+    soundtrackRating : Number,
 }
