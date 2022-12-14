@@ -6,26 +6,17 @@ import User from "../models/User";
 export default interface FollowListDaoI{
 
     /**
-     * Method to find all the followers the current user have.
+     * Method to find all the followers using a user Id.
+     * @param uId userId of the given user.
+     *
      */
     findAllFollowers(uId: string) : Promise<User[]>;
 
     /**
-     * Method to find all the users who are following the current user.
+     * Method to find all the users who are following the given user.
+     * @param uId userId of the given user.
      */
     findAllFollowing(uId: string) : Promise<User[]>;
-
-    /**
-     * Find all the followers another user have.
-     * @param uId userId of another user.
-     */
-    findFollowersByUserId(uId : string) : Promise<User[]>;
-
-    /**
-     * Find who all are following another user.
-     * @param uId userId of another user.
-     */
-    findFollowingByUserId(uId : string) : Promise<User[]>;
 
     /**
      * Add a user whom the current user wants to follow.

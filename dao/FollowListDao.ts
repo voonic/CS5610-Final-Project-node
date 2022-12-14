@@ -31,12 +31,5 @@ export default class FollowListDao implements FollowListDaoI{
         return finalResult;
     }
 
-    findFollowersByUserId(uId: string): Promise<User[]> {
-        return Promise.resolve([]);
-    }
-
-    findFollowingByUserId(uId: string): Promise<User[]> {
-        return Promise.resolve([]);
-    }
 
 }

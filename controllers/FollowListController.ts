@@ -52,10 +52,5 @@ export default class FollowListController implements FollowListControllerI{
         res.json(result);
     }
 
-    findFollowersByUserId = async (req: Request, res: Response) => {
-    }
-
-    findFollowingByUserId = async (req: Request, res: Response) => {
-    }
 
 }
