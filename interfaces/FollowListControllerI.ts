@@ -8,7 +8,7 @@ export default interface FollowListControllerI{
 
     findAllFollowers(req: Request, res: Response): void;
     findAllFollowing(req: Request, res: Response): void;
-    findFollowerByUserId(req: Request, res: Response): void;
+    findFollowersByUserId(req: Request, res: Response): void;
     findFollowingByUserId(req: Request, res: Response): void;
     addFollowing(req: Request, res: Response): void;
     deleteFollowing(req: Request, res: Response): void;

@@ -1,7 +1,6 @@
 import FollowListControllerI from "../interfaces/FollowListControllerI";
 import {Express, Request, Response} from "express";
 import UserDao from "../dao/UserDao";
-import User from "../models/User";
 
 export default class FollowListController implements FollowListControllerI{
 
@@ -27,7 +26,7 @@ export default class FollowListController implements FollowListControllerI{
             app.get("/follow/find/following", FollowListController.followListController.findAllFollowing);
             app.post("/follow/add/:uid",  FollowListController.followListController.addFollowing);
             app.get("/user/find/following/:uid", FollowListController.followListController.findFollowingByUserId)
-            app.get("/user/find/follower/:uid", FollowListController.followListController.findFollowerByUserId);
+            app.get("/user/find/follower/:uid", FollowListController.followListController.findFollowersByUserId);
             app.delete("/follow/delete/:uid", FollowListController.followListController.deleteFollowing);
 
         }
@@ -47,7 +46,7 @@ export default class FollowListController implements FollowListControllerI{
     findAllFollowing = async (req: Request, res: Response) => {
     }
 
-    findFollowerByUserId = async (req: Request, res: Response) => {
+    findFollowersByUserId = async (req: Request, res: Response) => {
     }
 
     findFollowingByUserId = async (req: Request, res: Response) => {
