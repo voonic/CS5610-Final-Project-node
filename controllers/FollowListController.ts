@@ -1,11 +1,12 @@
 import FollowListControllerI from "../interfaces/FollowListControllerI";
 import {Express, Request, Response} from "express";
 import UserDao from "../dao/UserDao";
+import User from "../models/User";
 
 export default class FollowListController implements FollowListControllerI{
 
     private static userDao: UserDao = new UserDao();
-    private static FollowListController: FollowListController | null = null;
+    private static followListController: FollowListController | null = null;
 
     /**
      * Private constructor because we want singleton pattern to be used
@@ -22,8 +23,13 @@ export default class FollowListController implements FollowListControllerI{
     public static getInstance = (app: Express): FollowListController => {
         if (FollowListController.followListController === null) {
             FollowListController.followListController = new FollowListController();
-            app.get("/user/:uid", FollowListController.followListController.findUserById);
-            app.put("/user/:uid",  FollowListController.followListController.updateUser);
+            app.get("/follow/find/followers", FollowListController.followListController.findAllFollowers);
+            app.get("/follow/find/following", FollowListController.followListController.findAllFollowing);
+            app.post("/follow/add/:uid",  FollowListController.followListController.addFollowing);
+            app.get("/user/find/following/:uid", FollowListController.followListController.findFollowingByUserId)
+            app.get("/user/find/follower/:uid", FollowListController.followListController.findFollowerByUserId);
+            app.delete("/follow/delete/:uid", FollowListController.followListController.deleteFollowing);
+
         }
         return FollowListController.followListController;
     }
