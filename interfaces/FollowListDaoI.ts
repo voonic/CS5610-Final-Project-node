@@ -20,13 +20,15 @@ export default interface FollowListDaoI{
 
     /**
      * Add a user whom the current user wants to follow.
-     * @param uId userId of the other user.
+     * @param uId userId of the current user.
+     * @param fId userId of the other user.
      */
-    addFollowing(uId : string) : Promise<any>;
+    addFollowing(uId : string,fId:string) : Promise<any>;
 
     /**
      * stop user from following a particular user.
-     * @param uId userId of the other user who needs to be deleted from the following.
+     * @param uId userId of the current user who is deleting the other user.
+     * @param fId userId of the other user who needs to be deleted from the following.
      */
-    deleteFollowing(uId : string) : Promise<any>;
+    deleteFollowing(uId : string,fId:string) : Promise<any>;
 }
