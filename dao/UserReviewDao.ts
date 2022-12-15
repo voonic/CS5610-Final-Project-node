@@ -21,14 +21,15 @@ export default class UserReviewDao implements UserReviewDaoI {
   }
   createReview = async (newReview: UserReview): Promise<any> => {
     const res = await UserReviewModel.create(newReview);
+    await res.populate("reviewedBy");
     return res;
-
   }
-  deleteReviewById = async (rId: string): Promise<any> => {
 
+  deleteReviewById = async (rId: string): Promise<any> => {
     const res = await UserReviewModel.deleteOne({ _id: rId });
     return res;
   }
+
   updateReviewById = async (rId: string, newReview: UserReview): Promise<any> => {
     const res = await UserReviewModel.updateOne({ _id: rId }, { $set: newReview });
     return res;
