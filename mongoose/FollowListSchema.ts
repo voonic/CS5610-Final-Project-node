@@ -8,7 +8,7 @@ import FollowList from "../models/FollowList";
 const FollowListSchema = new mongoose.Schema<FollowList>({
     follower: {type : mongoose.Schema.Types.ObjectId, ref : "UserModel", required:true},
     following : {type : mongoose.Schema.Types.ObjectId, ref : "UserModel", required:true},
-    addedOn: {type : Date, required:true},
+    addedOn: {type : Date, default: Date.now },
 }, { collection: 'followList' });
 
 export default FollowListSchema;
