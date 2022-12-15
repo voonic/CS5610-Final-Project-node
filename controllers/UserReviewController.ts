@@ -79,8 +79,15 @@ export default class UserReviewController implements UserReviewControllerI {
    */
   createReview = async (req: Request, res: Response) => {
     const review = req.body;
-    const status = await UserReviewController.userReviewDao.createReview(review);
-    res.json(status);
+    //@ts-ignore
+    const user = req.session['profile'];
+    if (user) {
+      review.reviewedBy = user._id;
+      const status = await UserReviewController.userReviewDao.createReview(review);
+      res.json(status);
+    } else {
+      res.status(401).json("You need to be logged in first");
+    }
   };
 
   /**
