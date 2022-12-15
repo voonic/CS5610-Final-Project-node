@@ -24,8 +24,8 @@ export default class FollowListController implements FollowListControllerI{
             FollowListController.followListController = new FollowListController();
             app.get("/user/:uid/followers/", FollowListController.followListController.findAllFollowers);
             app.get("/user/:uid/following/", FollowListController.followListController.findAllFollowing);
-            app.post("/follow/add/:uid",  FollowListController.followListController.addFollowing);
-            app.delete("/follow/delete/:uid", FollowListController.followListController.deleteFollowing);
+            app.post("/user/:uid/follows/:fid",  FollowListController.followListController.addFollowing);
+            app.delete("/user/:uid/unfollows/:fid", FollowListController.followListController.deleteFollowing);
 
         }
         return FollowListController.followListController;
@@ -38,7 +38,8 @@ export default class FollowListController implements FollowListControllerI{
      */
     addFollowing = async (req: Request, res: Response) => {
         const uid = req.params.uid;
-        const status = await FollowListController.followListDao.addFollowing(uid);
+        const fid = req.params.fid;
+        const status = await FollowListController.followListDao.addFollowing(uid,fid);
         res.json(status);
 
     }
@@ -50,7 +51,8 @@ export default class FollowListController implements FollowListControllerI{
      */
     deleteFollowing = async (req: Request, res: Response) => {
         const uid = req.params.uid;
-        const status = await FollowListController.followListDao.deleteFollowing(uid);
+        const fid = req.params.fid;
+        const status = await FollowListController.followListDao.deleteFollowing(uid,fid);
         res.json(status);
     }
 
