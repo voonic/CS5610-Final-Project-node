@@ -24,8 +24,8 @@ export default class FollowListController implements FollowListControllerI{
             FollowListController.followListController = new FollowListController();
             app.get("/user/:uid/followers/", FollowListController.followListController.findAllFollowers);
             app.get("/user/:uid/following/", FollowListController.followListController.findAllFollowing);
-            app.post("/follow/add/:uid",  FollowListController.followListController.addFollowing);
-            app.delete("/follow/delete/:uid", FollowListController.followListController.deleteFollowing);
+            app.post("/user/add/:uid",  FollowListController.followListController.addFollowing);
+            app.delete("/user/delete/:uid", FollowListController.followListController.deleteFollowing);
 
         }
         return FollowListController.followListController;
