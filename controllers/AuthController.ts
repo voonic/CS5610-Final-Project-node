@@ -47,7 +47,6 @@ export default class AuthController implements AuthControllerI {
     const password = newUser.password;
     const hash = await bcrypt.hash(password, saltRounds);
     newUser.password = hash;
-    newUser.profilePhoto = "nasa.png";
     const existingUser = await AuthController.userDao
       .findUserByEmail(req.body.email);
     if (existingUser) {
