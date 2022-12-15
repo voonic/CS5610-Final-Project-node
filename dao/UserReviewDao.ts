@@ -31,7 +31,7 @@ export default class UserReviewDao implements UserReviewDaoI {
   }
 
   updateReviewById = async (rId: string, newReview: UserReview): Promise<any> => {
-    const res = await UserReviewModel.updateOne({ _id: rId }, { $set: newReview });
+    const res = await UserReviewModel.updateOne({ _id: rId }, { $set: newReview }).populate("reviewedBy");
     return res;
   }
 }
