@@ -25,13 +25,13 @@ export default class UserController implements UserControllerI {
     public static getInstance = (app: Express): UserController => {
         if (UserController.userController === null) {
             UserController.userController = new UserController();
-            app.get("/user/find/:uid", UserController.userController.findUserById);
-            app.get("/user/find/email", UserController.userController.findUserByEmail);
-            app.put("/user/update/:uid",  UserController.userController.updateUser);
+            app.get("/user/:uid", UserController.userController.findUserById);
+            app.get("/user/:email", UserController.userController.findUserByEmail);
+            app.put("/user/:uid", UserController.userController.updateUser);
             app.post("/user/create", UserController.userController.createUser);
-            app.get("/user/find/all", UserController.userController.findAllUsers);
-            app.delete("/user/delete/:uid", UserController.userController.deleteUser);
-            app.delete("/user/delete/:email", UserController.userController.deleteUserByEmail);
+            app.get("/user/all", UserController.userController.findAllUsers);
+            app.delete("/user/:uid", UserController.userController.deleteUser);
+            app.delete("/user/:email", UserController.userController.deleteUserByEmail);
         }
         return UserController.userController;
     }
@@ -115,4 +115,4 @@ export default class UserController implements UserControllerI {
 
 
 
-  }
+}
