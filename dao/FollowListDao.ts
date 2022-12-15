@@ -2,6 +2,7 @@ import FollowListDaoI from "../interfaces/FollowListDaoI";
 import User from "../models/User";
 import FollowListModel from "../mongoose/FollowListModel";
 
+
 export default class FollowListDao implements FollowListDaoI {
     async addFollowing(uId: string,fId:string): Promise<any> {
         const res = await FollowListModel.create({follower:uId,following:fId});
