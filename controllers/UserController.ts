@@ -1,7 +1,8 @@
 import { Express, Request, Response } from "express";
 import UserDao from "../dao/UserDao";
 import UserControllerI from "../interfaces/UserControllerI";
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 /**
  * User controller that handles operations on the user related to adding ,updating user.
@@ -30,7 +31,7 @@ export default class UserController implements UserControllerI {
             app.put("/user/:uid", UserController.userController.updateUser);
             app.post("/user/create", UserController.userController.createUser);
             app.get("/user/all", UserController.userController.findAllUsers);
-            app.get("/admin/users",UserController.userController.findAllUsers);
+            app.get("/admin/users", UserController.userController.findAllUsers);
             app.delete("/user/:uid", UserController.userController.deleteUser);
             app.delete("/user/:email", UserController.userController.deleteUserByEmail);
         }
@@ -56,6 +57,10 @@ export default class UserController implements UserControllerI {
     updateUser = async (req: Request, res: Response) => {
         const uid = req.params.uid;
         const user = req.body;
+        if (user.password) {
+            const hash = await bcrypt.hash(user.password, saltRounds);
+            user.password = hash;
+        }
         const result = await UserController.userDao.updateUser(uid, user);
         res.json(result);
     }
@@ -113,7 +118,4 @@ export default class UserController implements UserControllerI {
         const result = await UserController.userDao.findUserById(email);
         res.json(result);
     }
-
-
-
 }

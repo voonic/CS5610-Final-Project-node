@@ -1,7 +1,6 @@
 import { Express, Request, Response } from "express";
 import UserDao from "../dao/UserDao";
 import AuthControllerI from "../interfaces/AuthControllerI";
-import UserController from "./UserController";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
