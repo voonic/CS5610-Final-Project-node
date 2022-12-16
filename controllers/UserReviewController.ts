@@ -30,6 +30,7 @@ export default class UserReviewController implements UserReviewControllerI {
       UserReviewController.userReviewController = new UserReviewController();
       app.post("/movie/reviews", UserReviewController.userReviewController.createReview);
       app.get("/movie/reviews/:mId", UserReviewController.userReviewController.findReviewByMovieId);
+      app.get("/movie/reviews/:mId/count", UserReviewController.userReviewController.getRatingCount);
       app.get("/movie/reviews/:mId/:reviewType", UserReviewController.userReviewController.findReviewByMovieIdAndType);
       app.get("/user/reviews/:uId", UserReviewController.userReviewController.findReviewByUserId);
       app.get("/admin/reviews", UserReviewController.userReviewController.findAllReview);
@@ -55,7 +56,7 @@ export default class UserReviewController implements UserReviewControllerI {
    * @param req request to get all the reviews.
    * @param res response with all the reviews in the database.
    */
-  findAllReview = async(req :Request, res :Response) =>{
+  findAllReview = async (req: Request, res: Response) => {
     const result = await UserReviewController.userReviewDao.findAllReviews();
     res.json(result);
 
@@ -131,6 +132,22 @@ export default class UserReviewController implements UserReviewControllerI {
       res.status(401).json("You need to be logged in first");
     }
   };
+
+  getRatingCount = async (req: Request, res: Response) => {
+    const mId = req.params.mId;
+    console.log(mId);
+    const existingRevs = await UserReviewController.userReviewDao.findReviewByMovieId(mId);
+    console.log(existingRevs);
+    let summation = 0;
+    let rating = 0;
+    if (existingRevs.length > 0) {
+      existingRevs.forEach(r => {
+        summation = summation + r.reviewRating;
+      });
+      rating = summation / existingRevs.length;
+    }
+    res.json({ rating: rating });
+  }
 }
 
 

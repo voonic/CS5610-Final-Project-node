@@ -8,7 +8,7 @@ import UserReviewModel from "../mongoose/UserReviewModel";
  * review or adding a movie review etc.
  */
 export default class UserReviewDao implements UserReviewDaoI {
-  findAllReviews = async(): Promise<UserReview[]> => {
+  findAllReviews = async (): Promise<UserReview[]> => {
     const res = await UserReviewModel.find().populate("reviewedBy");
     return res;
   }
