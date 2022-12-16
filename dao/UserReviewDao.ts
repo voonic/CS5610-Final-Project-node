@@ -4,6 +4,10 @@ import UserReview from "../models/UserReview";
 import UserReviewModel from "../mongoose/UserReviewModel";
 
 export default class UserReviewDao implements UserReviewDaoI {
+  findAllReviews = async(): Promise<UserReview[]> => {
+    const res = await UserReviewModel.find().populate("reviewedBy");
+    return res;
+  }
 
   findReviewByMoviewIdAndType = async (mId: string, type: ReviewType): Promise<UserReview[]> => {
     const res = await UserReviewModel.find({ movieId: mId, reviewType: type }).sort({ reviewTime: -1 }).populate("reviewedBy");

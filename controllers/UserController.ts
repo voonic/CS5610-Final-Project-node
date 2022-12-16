@@ -30,6 +30,7 @@ export default class UserController implements UserControllerI {
             app.put("/user/:uid", UserController.userController.updateUser);
             app.post("/user/create", UserController.userController.createUser);
             app.get("/user/all", UserController.userController.findAllUsers);
+            app.get("/admin/users",UserController.userController.findAllUsers);
             app.delete("/user/:uid", UserController.userController.deleteUser);
             app.delete("/user/:email", UserController.userController.deleteUserByEmail);
         }
