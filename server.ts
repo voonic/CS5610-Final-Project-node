@@ -4,6 +4,7 @@ import AuthController from './controllers/AuthController';
 import UserReviewController from './controllers/UserReviewController';
 import UserController from "./controllers/UserController";
 import FollowListController from "./controllers/FollowListController";
+import WatchlistController from './controllers/WatchlistController';
 
 const cors = require('cors');
 const session = require("express-session");
@@ -51,6 +52,7 @@ AuthController.getInstance(app);
 UserReviewController.getInstance(app);
 UserController.getInstance(app);
 FollowListController.getInstance(app);
+WatchlistController.getInstance(app);
 
 /*
 * Start a server listening at port 4000 locally
