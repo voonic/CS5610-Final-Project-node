@@ -1,6 +1,7 @@
 import { Express, Request, Response } from "express";
 import UserDao from "../dao/UserDao";
 import AuthControllerI from "../interfaces/AuthControllerI";
+import UserController from "./UserController";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -118,8 +119,9 @@ export default class AuthController implements AuthControllerI {
     //@ts-ignore
     const profile = req.session['profile'];
     if (profile) {
-      profile.password = "";
-      res.json(profile);
+      const user = await AuthController.userDao.findUserById(profile._id);
+      user.password = "";
+      res.json(user);
     } else {
       res.sendStatus(403);
     }
