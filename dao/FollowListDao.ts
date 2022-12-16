@@ -5,36 +5,26 @@ import UserModel from "../mongoose/UserModel";
 
 
 export default class FollowListDao implements FollowListDaoI {
-    async addFollowing(uId: string,fId:string): Promise<any> {
-
-        const isPresent =  await FollowListModel.findOne({ following: fId ,follower:uId})
-        if (!isPresent){
-            const res = await FollowListModel.create({follower:uId,following:fId});
-            await UserModel.update({_id:uId}, {$inc: { followingCount: 1}});
-            await UserModel.update({_id:fId}, {$inc: { followerCount: 1}});
-            return res;
-        }
-
-    }
-
-    async deleteFollowing(uId: string,fId:string): Promise<any> {
-        const isPresent =  await FollowListModel.findOne({ following: fId ,follower:uId})
-        if (isPresent) {
-            const res = await FollowListModel.deleteOne({follower: uId, following: fId});
-            await UserModel.update({_id: uId}, {$inc: {followingCount: -1}});
-            await UserModel.update({_id: fId}, {$inc: {followerCount: -1}});
-            return res;
-        }
-    }
-    
     async addFollowing(uId: string, fId: string): Promise<any> {
-        const res = await FollowListModel.create({ follower: uId, following: fId });
-        return res;
+
+        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId })
+        if (!isPresent) {
+            const res = await FollowListModel.create({ follower: uId, following: fId });
+            await UserModel.update({ _id: uId }, { $inc: { followingCount: 1 } });
+            await UserModel.update({ _id: fId }, { $inc: { followerCount: 1 } });
+            return res;
+        }
+
     }
 
     async deleteFollowing(uId: string, fId: string): Promise<any> {
-        const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
-        return res;
+        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId })
+        if (isPresent) {
+            const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
+            await UserModel.update({ _id: uId }, { $inc: { followingCount: -1 } });
+            await UserModel.update({ _id: fId }, { $inc: { followerCount: -1 } });
+            return res;
+        }
     }
 
     async findAllFollowers(uId: string): Promise<User[]> {
