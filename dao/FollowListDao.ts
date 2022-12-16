@@ -12,7 +12,8 @@ export default class FollowListDao implements FollowListDaoI {
      * @param uId userId of the logged in user.
      * @param fId userId of the other user.
      */
-    async addFollowing(uId: string,fId:string): Promise<any> {
+    async addFollowing(uId: string, fId: string): Promise<any> {
+        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId })
         if (!isPresent) {
             const res = await FollowListModel.create({ follower: uId, following: fId });
             await UserModel.updateOne({ _id: uId }, { $inc: { followingCount: 1 } });
@@ -26,7 +27,7 @@ export default class FollowListDao implements FollowListDaoI {
      * @param uId userId of the current user who is deleting the other user.
      * @param fId userId of the other user who needs to be deleted from the following.
      */
-    async deleteFollowing(uId: string,fId:string): Promise<any> {
+    async deleteFollowing(uId: string, fId: string): Promise<any> {
         const isPresent = await FollowListModel.findOne({ following: fId, follower: uId });
         if (isPresent) {
             const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
