@@ -4,13 +4,13 @@ import FollowListModel from "../mongoose/FollowListModel";
 
 
 export default class FollowListDao implements FollowListDaoI {
-    async addFollowing(uId: string,fId:string): Promise<any> {
-        const res = await FollowListModel.create({follower:uId,following:fId});
+    async addFollowing(uId: string, fId: string): Promise<any> {
+        const res = await FollowListModel.create({ follower: uId, following: fId });
         return res;
     }
 
-    async deleteFollowing(uId: string,fId:string): Promise<any> {
-        const res = await FollowListModel.deleteOne({ follower: uId, following:fId });
+    async deleteFollowing(uId: string, fId: string): Promise<any> {
+        const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
         return res;
     }
 
