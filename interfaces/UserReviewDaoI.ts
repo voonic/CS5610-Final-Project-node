@@ -7,6 +7,7 @@ import UserReview from "../models/UserReview";
 export default interface UserReviewDaoI{
 
   findReviewByMovieId(mId :string) : Promise<UserReview[]>;
+  findAllReviews() :Promise<UserReview[]>;
   findReviewByMoviewIdAndType(mId:string,type : ReviewType): Promise<UserReview[]>;
   findReviewByUserId(uId : string) : Promise<UserReview[]>;
   createReview(newReview : UserReview) : Promise<any>;

@@ -32,6 +32,7 @@ export default class UserReviewController implements UserReviewControllerI {
       app.get("/movie/reviews/:mId", UserReviewController.userReviewController.findReviewByMovieId);
       app.get("/movie/reviews/:mId/:reviewType", UserReviewController.userReviewController.findReviewByMovieIdAndType);
       app.get("/user/reviews/:uId", UserReviewController.userReviewController.findReviewByUserId);
+      app.get("/admin/reviews", UserReviewController.userReviewController.findAllReview);
       app.put("/movie/reviews/:rId", UserReviewController.userReviewController.updateReviewById);
       app.delete("/movie/reviews/:rId", UserReviewController.userReviewController.deleteReviewById);
     }
@@ -48,6 +49,17 @@ export default class UserReviewController implements UserReviewControllerI {
     const result = await UserReviewController.userReviewDao.findReviewByUserId(uId);
     res.json(result);
   };
+
+  /**
+   * Responsible for fetching all the reviews in the database irrespective of the id.
+   * @param req request to get all the reviews.
+   * @param res response with all the reviews in the database.
+   */
+  findAllReview = async(req :Request, res :Response) =>{
+    const result = await UserReviewController.userReviewDao.findAllReviews();
+    res.json(result);
+
+  }
 
   /**
    * Responsible for finding all the reviews that a particular movie got.
@@ -109,8 +121,15 @@ export default class UserReviewController implements UserReviewControllerI {
   updateReviewById = async (req: Request, res: Response) => {
     const rId = req.params.rId;
     const review = req.body;
-    const status = await UserReviewController.userReviewDao.updateReviewById(rId, review);
-    res.json(status);
+    //@ts-ignore
+    const user = req.session['profile'];
+    if (user) {
+      review.reviewedBy = user._id;
+      const status = await UserReviewController.userReviewDao.updateReviewById(rId, review);
+      res.json(status);
+    } else {
+      res.status(401).json("You need to be logged in first");
+    }
   };
 }
 

@@ -47,7 +47,6 @@ export default class AuthController implements AuthControllerI {
     const password = newUser.password;
     const hash = await bcrypt.hash(password, saltRounds);
     newUser.password = hash;
-    newUser.profilePhoto = "nasa.png";
     const existingUser = await AuthController.userDao
       .findUserByEmail(req.body.email);
     if (existingUser) {
@@ -119,8 +118,9 @@ export default class AuthController implements AuthControllerI {
     //@ts-ignore
     const profile = req.session['profile'];
     if (profile) {
-      profile.password = "";
-      res.json(profile);
+      const user = await AuthController.userDao.findUserById(profile._id);
+      user.password = "";
+      res.json(user);
     } else {
       res.sendStatus(403);
     }

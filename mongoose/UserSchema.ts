@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema<User>({
   password: { type: String, required: true },
   name: { type: String },
   profilePhoto: {type: String, default : "https://tinyurl.com/2p9apkca"},
-  headerImage: String,
+  headerImage: {type : String, default : "https://tinyurl.com/ywmkupbf"},
   biography: String,
   dob: Date,
   joined: { type: Date, default: Date.now },

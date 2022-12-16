@@ -26,6 +26,16 @@ export default class FollowListDao implements FollowListDaoI {
             return res;
         }
     }
+    
+    async addFollowing(uId: string, fId: string): Promise<any> {
+        const res = await FollowListModel.create({ follower: uId, following: fId });
+        return res;
+    }
+
+    async deleteFollowing(uId: string, fId: string): Promise<any> {
+        const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
+        return res;
+    }
 
     async findAllFollowers(uId: string): Promise<User[]> {
         const finalResult: User[] = [];
