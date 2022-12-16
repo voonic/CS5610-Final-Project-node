@@ -7,22 +7,18 @@ import UserModel from "../mongoose/UserModel";
  * Class for implementing the follow list interface and its functions.
  */
 export default class FollowListDao implements FollowListDaoI {
-
     /**
      * Add a user whom the current user wants to follow.
      * @param uId userId of the logged in user.
      * @param fId userId of the other user.
      */
     async addFollowing(uId: string,fId:string): Promise<any> {
-
-        const isPresent =  await FollowListModel.findOne({ following: fId ,follower:uId})
-        if (!isPresent){
-            const res = await FollowListModel.create({follower:uId,following:fId});
-            await UserModel.update({_id:uId}, {$inc: { followingCount: 1}});
-            await UserModel.update({_id:fId}, {$inc: { followerCount: 1}});
+        if (!isPresent) {
+            const res = await FollowListModel.create({ follower: uId, following: fId });
+            await UserModel.updateOne({ _id: uId }, { $inc: { followingCount: 1 } });
+            await UserModel.updateOne({ _id: fId }, { $inc: { followersCount: 1 } });
             return res;
         }
-
     }
 
     /**
@@ -31,15 +27,14 @@ export default class FollowListDao implements FollowListDaoI {
      * @param fId userId of the other user who needs to be deleted from the following.
      */
     async deleteFollowing(uId: string,fId:string): Promise<any> {
-        const isPresent =  await FollowListModel.findOne({ following: fId ,follower:uId})
+        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId });
         if (isPresent) {
-            const res = await FollowListModel.deleteOne({follower: uId, following: fId});
-            await UserModel.update({_id: uId}, {$inc: {followingCount: -1}});
-            await UserModel.update({_id: fId}, {$inc: {followerCount: -1}});
+            const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
+            await UserModel.updateOne({ _id: uId }, { $inc: { followingCount: -1 } });
+            await UserModel.updateOne({ _id: fId }, { $inc: { followersCount: -1 } });
             return res;
         }
     }
-
 
     /**
      * Method to find all the followers using a user Id.
