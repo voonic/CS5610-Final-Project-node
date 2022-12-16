@@ -5,7 +5,7 @@ import Watchlist from "../models/Watchlist";
  */
 export default interface WatchlistDaoI{
   fetchAllMoviesInWatchlist (uId : String) : Promise<Watchlist[]>;
-  toggleMovieInWatchlist (uId : String, mId :String) : Promise<any>;
+  toggleMovieInWatchlist (uId : String, mId :String, movie : any) : Promise<any>;
   isMoviewInWatchlist (uId : String, mId :String) : Promise<any>;
 
 }

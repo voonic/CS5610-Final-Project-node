@@ -10,5 +10,6 @@ export default interface Watchlist{
   addedBy : User,
   movieId: Number,
   addTime : Date,
+  movie : any,
 
 }

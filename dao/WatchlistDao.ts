@@ -12,7 +12,7 @@ export default class WatchlistDao implements WatchlistDaoI{
   }
 
 
-  toggleMovieInWatchlist = async (uId: String, mId: String): Promise<any> => {
+  toggleMovieInWatchlist = async (uId: String, mId: String , movie : any): Promise<any> => {
     const list = await this.isMoviewInWatchlist(uId,mId);
 
     if(list.length > 0){
@@ -23,6 +23,7 @@ export default class WatchlistDao implements WatchlistDaoI{
       const newWatchlist = {
         "addedBy" : uId,
         "movieId" : mId,
+        "movie" :movie
       } 
      const res =  await WatchlistModel.create(newWatchlist);
      return res;
