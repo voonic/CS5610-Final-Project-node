@@ -15,7 +15,7 @@ class WatchlistController implements WatchlistControllerI{
       WatchlistController.watchlistController = new WatchlistController();
       app.post("/watchlist/:uId/:mId", WatchlistController.watchlistController.toggleMovieInWatchlist);
       app.get("/watchlist/:uId", WatchlistController.watchlistController.fetchAllMoviesInWatchlist);
-      app.get("/watchlist/:uId/:mId/",WatchlistController.watchlistController.isMoviewInWatchlist);
+      app.get("/watchlist/:uId/:mId",WatchlistController.watchlistController.isMoviewInWatchlist);
     }
     return WatchlistController.watchlistController;
   }
