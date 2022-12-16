@@ -30,8 +30,6 @@ class WatchlistController implements WatchlistControllerI{
   toggleMovieInWatchlist = async(req: Request, res: Response) => {
     const userId = req.params.uId;
     const movieId = req.params.mId;
-    console.log("UId",userId, movieId);
-
     const result = await WatchlistController.watchlistDao.toggleMovieInWatchlist(userId,movieId);
     res.json(result);
   }
