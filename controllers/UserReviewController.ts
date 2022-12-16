@@ -135,9 +135,7 @@ export default class UserReviewController implements UserReviewControllerI {
 
   getRatingCount = async (req: Request, res: Response) => {
     const mId = req.params.mId;
-    console.log(mId);
     const existingRevs = await UserReviewController.userReviewDao.findReviewByMovieId(mId);
-    console.log(existingRevs);
     let summation = 0;
     let rating = 0;
     if (existingRevs.length > 0) {
