@@ -6,23 +6,21 @@ import UserModel from "../mongoose/UserModel";
 
 export default class FollowListDao implements FollowListDaoI {
     async addFollowing(uId: string, fId: string): Promise<any> {
-
-        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId })
+        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId });
         if (!isPresent) {
             const res = await FollowListModel.create({ follower: uId, following: fId });
-            await UserModel.update({ _id: uId }, { $inc: { followingCount: 1 } });
-            await UserModel.update({ _id: fId }, { $inc: { followerCount: 1 } });
+            await UserModel.updateOne({ _id: uId }, { $inc: { followingCount: 1 } });
+            await UserModel.updateOne({ _id: fId }, { $inc: { followersCount: 1 } });
             return res;
         }
-
     }
 
     async deleteFollowing(uId: string, fId: string): Promise<any> {
-        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId })
+        const isPresent = await FollowListModel.findOne({ following: fId, follower: uId });
         if (isPresent) {
             const res = await FollowListModel.deleteOne({ follower: uId, following: fId });
-            await UserModel.update({ _id: uId }, { $inc: { followingCount: -1 } });
-            await UserModel.update({ _id: fId }, { $inc: { followerCount: -1 } });
+            await UserModel.updateOne({ _id: uId }, { $inc: { followingCount: -1 } });
+            await UserModel.updateOne({ _id: fId }, { $inc: { followersCount: -1 } });
             return res;
         }
     }
