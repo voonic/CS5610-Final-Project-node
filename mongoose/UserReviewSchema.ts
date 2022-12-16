@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import ReviewType from "../models/ReviewType";
 import UserReview from "../models/UserReview";
 
+/**
+ * schema in mongo db for user review.
+ */
 const UserReviewSchema = new mongoose.Schema<UserReview>({
     reviewDetail : String,
     reviewTime : {type : Date, default : Date.now},

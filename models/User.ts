@@ -17,7 +17,6 @@ import AccountType from "./AccountType";
  * @property {Number} followingCount The count of total users whom I'm following.
  * 
  * @see AccountType
- * @see MaritalStatus
  */
 export default interface User {
   username: string;

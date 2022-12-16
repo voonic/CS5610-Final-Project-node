@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-import User from "../models/User";
 
 /**
  * An interface that provides common operations that
