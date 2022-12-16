@@ -7,6 +7,7 @@
 enum AccountType {
     Critic = 'CRITIC',
     Normal = 'NORMAL',
+    Admin = "ADMIN",
 };
 
 export default AccountType;

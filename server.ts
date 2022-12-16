@@ -1,5 +1,10 @@
 import express, { Request, Response } from 'express';
 import { connect } from 'mongoose';
+import AuthController from './controllers/AuthController';
+import UserReviewController from './controllers/UserReviewController';
+import UserController from "./controllers/UserController";
+import FollowListController from "./controllers/FollowListController";
+import WatchlistController from './controllers/WatchlistController';
 
 const cors = require('cors');
 const session = require("express-session");
@@ -17,7 +22,7 @@ if (process.env.ENV === 'PRODUCTION') {
   sess.cookie.secure = true // serve secure cookies
 }
 const bodyParser = require('body-parser');
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: process.env.ORIGINS }));
 app.use(session(sess));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,8 +37,22 @@ const options = {
   family: 4
 }
 
+
+connect('mongodb+srv://webdevfinal:web12345@cluster0.mbnud63.mongodb.net/?retryWrites=true&w=majority', options, (err) => {
+  if (err) {
+    return console.error(err);
+  }
+  return console.log("MongoDB connection successful");
+});
+
 app.get('/', (req: Request, res: Response) =>
   res.send('Welcome to Web Dev Final Project!!!!'));
+
+AuthController.getInstance(app);
+UserReviewController.getInstance(app);
+UserController.getInstance(app);
+FollowListController.getInstance(app);
+WatchlistController.getInstance(app);
 
 /*
 * Start a server listening at port 4000 locally
