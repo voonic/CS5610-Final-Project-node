@@ -1,6 +1,7 @@
 import User from "../models/User";
 import UserModel from "../mongoose/UserModel";
 import UserDaoI from "../interfaces/UserDaoI";
+import UserReviewModel from "../mongoose/UserReviewModel";
 
 /**
  * @class A class that defines the CRUD operations on 
@@ -48,7 +49,9 @@ export default class UserDao implements UserDaoI {
    * @returns The JSON object with delete count.
    */
   async deleteUser(uid: string): Promise<any> {
-    return await UserModel.deleteOne({ _id: uid });
+    const response =  await UserModel.deleteOne({ _id: uid });
+    await UserReviewModel.deleteMany({reviewedBy : uid});
+    return response;
   }
 
   /**
