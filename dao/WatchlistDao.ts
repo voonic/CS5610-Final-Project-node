@@ -6,8 +6,8 @@ import WatchlistModel from "../mongoose/WatchlistModel";
 export default class WatchlistDao implements WatchlistDaoI{
 
 
-  fetchAllMoviesInWatchlist =async (uID: String, mId: String): Promise<Watchlist[]> =>{
-    const res = await WatchlistModel.find({addedBy : uID, movieId : mId}).populate("addedBy");
+  fetchAllMoviesInWatchlist =async (uId: String): Promise<Watchlist[]> =>{
+    const res = await WatchlistModel.find({addedBy : uId}).populate("addedBy");
     return res;
   }
 
@@ -17,13 +17,14 @@ export default class WatchlistDao implements WatchlistDaoI{
 
     if(list.length > 0){
       const res = await WatchlistModel.deleteOne({addedBy : uId , movieId : mId})
+      return res;
 
     }else{
-      const newReview = {
+      const newWatchlist = {
         "addedBy" : uId,
-        "movieID" : mId,
+        "movieId" : mId,
       } 
-     const res =  await WatchlistModel.create(newReview);
+     const res =  await WatchlistModel.create(newWatchlist);
      return res;
     }
 
