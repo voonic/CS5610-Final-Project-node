@@ -13,7 +13,9 @@ let sess = {
   secret: process.env.SECRET || "CS5610",
   resave: false,
   cookie: {
-    secure: false
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000 * 7,
+    sameSite: 'none',
   }
 }
 
@@ -37,8 +39,8 @@ const options = {
   family: 4
 }
 
-
-connect('mongodb+srv://webdevfinal:web12345@cluster0.mbnud63.mongodb.net/?retryWrites=true&w=majority', options, (err) => {
+const DBURL = process.env.DBURL || "UNKNOWN"
+connect(DBURL, options, (err) => {
   if (err) {
     return console.error(err);
   }
